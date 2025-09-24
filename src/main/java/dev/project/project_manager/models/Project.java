@@ -25,11 +25,15 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+
     @ManyToMany
     @JoinTable(
-            name = "project_users",
+            name = "project_teams",
             joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "team_id")
     )
-    private Set<User> users = new HashSet<>();
+    private Set<Team> teams = new HashSet<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private Set<Task> tasks = new HashSet<>();
 }

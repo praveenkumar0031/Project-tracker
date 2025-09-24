@@ -21,15 +21,13 @@ public class Team {
 
 
     @ManyToOne
-    @JoinColumn(name = "leader_id", nullable = false)
+    @JoinColumn(name = "leader_id", nullable = false, unique = true)
     private User leader;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "team_members",
-            joinColumns = @JoinColumn(name = "team_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @OneToMany(mappedBy = "team")
     private Set<User> members = new HashSet<>();
+
+    @ManyToMany(mappedBy = "teams")
+    private Set<Project> projects = new HashSet<>();
 }

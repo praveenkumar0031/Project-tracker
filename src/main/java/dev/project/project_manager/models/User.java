@@ -38,8 +38,10 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(mappedBy = "members")
-    private Set<Team> teams = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
 
     @OneToMany(mappedBy = "leader")
     private Set<Team> leadingTeams = new HashSet<>();
