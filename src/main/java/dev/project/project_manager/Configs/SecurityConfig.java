@@ -1,6 +1,7 @@
 package dev.project.project_manager.Configs;
 
 
+import dev.project.project_manager.Filter.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,14 +15,14 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
-
+/*
 @Configuration
 public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() throws  Exception{
         return new BCryptPasswordEncoder();
     }
-    /*@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
@@ -30,7 +31,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }*/
+    }
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -44,3 +45,4 @@ public class SecurityConfig {
         return source;
     }
 }
+*/

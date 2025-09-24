@@ -9,6 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -26,4 +29,24 @@ public class User {
     String password;
     @NotBlank
     String favourite;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany(mappedBy = "members")
+    private Set<Team> teams = new HashSet<>();
+
+    @OneToMany(mappedBy = "leader")
+    private Set<Team> leadingTeams = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<Project> ownedProjects = new HashSet<>();
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Project> assignedProjects = new HashSet<>();
 }
