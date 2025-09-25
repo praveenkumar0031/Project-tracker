@@ -23,6 +23,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @NotBlank
+    String username;
+
     @Email
     String email;
     @NotBlank

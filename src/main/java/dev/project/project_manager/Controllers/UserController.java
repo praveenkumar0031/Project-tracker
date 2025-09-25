@@ -3,7 +3,7 @@ package dev.project.project_manager.Controllers;
 
 import dev.project.project_manager.Dtos.LoginRequest;
 import dev.project.project_manager.Repository.UserRepository;
-import dev.project.project_manager.Services.UserServices;
+import dev.project.project_manager.Services.users.UserServices;
 
 
 import dev.project.project_manager.models.User;
