@@ -52,6 +52,6 @@ public class User {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private Set<Project> ownedProjects = new HashSet<>();
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Project> assignedProjects = new HashSet<>();
+
+
 }

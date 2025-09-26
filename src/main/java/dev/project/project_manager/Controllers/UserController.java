@@ -29,12 +29,13 @@ public class UserController {
         String email = body.get("email");
         String password = passwordEncoder.encode(body.get("password"));
         String favourite = body.get("favourite");
+        String name=body.get("name");
 
         if(userRepo.findByEmail(email).isPresent()){
             return new ResponseEntity<String>("User already exists!", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         else{
-            userService.createUser(User.builder().email(email).password(password).favourite(favourite).build());
+            userService.createUser(User.builder().email(email).password(password).favourite(favourite).username(name).build());
             return new ResponseEntity<String>("User registered successfully!", HttpStatus.CREATED);
         }
     }

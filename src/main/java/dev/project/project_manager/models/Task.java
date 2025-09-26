@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long task_id;
+    Long id;
 
     @NotBlank(message = "Title cann't be Empty")
     String title;

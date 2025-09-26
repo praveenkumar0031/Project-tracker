@@ -17,7 +17,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String teamname;
 
 
     @ManyToOne
@@ -25,7 +25,7 @@ public class Team {
     private User leader;
 
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<User> members = new HashSet<>();
 
     @ManyToMany(mappedBy = "teams")

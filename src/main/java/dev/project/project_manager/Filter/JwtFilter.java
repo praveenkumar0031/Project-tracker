@@ -1,6 +1,5 @@
 package dev.project.project_manager.Filter;
 
-
 import dev.project.project_manager.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -8,41 +7,52 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
-/*
+
 @Component
 @Order(1)
 public class JwtFilter extends OncePerRequestFilter {
+
     private final JwtUtil jwtUtil;
 
     public JwtFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
+
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         // Skip JWT check for login and register endpoints
         String path = request.getServletPath();
-        //System.out.println("Filtering path: " + request.getServletPath());
-
         return path.startsWith("/auth/");
     }
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
         String authHeader = request.getHeader("Authorization");
-        if(authHeader != null && authHeader.startsWith("Bearer ")){
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            if(jwtUtil.validateJwtToken(token)){
-                String email= jwtUtil.extractEmail(token);
-                var auth =new UsernamePasswordAuthenticationToken(email,null, List.of());
+
+            if (jwtUtil.validateJwtToken(token)) {
+                String email = jwtUtil.extractEmail(token);
+
+                // ✅ Fake ROLE_USER for now
+                var authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+                var auth = new UsernamePasswordAuthenticationToken(email, null, authorities);
+
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
-        filterChain.doFilter(request,response);
+
+        filterChain.doFilter(request, response);
     }
 }
-*/
