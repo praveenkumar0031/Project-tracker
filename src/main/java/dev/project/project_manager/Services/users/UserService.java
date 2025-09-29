@@ -11,6 +11,7 @@ public interface UserService {
 
     Optional<User> getUserById(Long id);
     Optional<User> getUserByEmail(String email);
+    Optional<User> getUserByTeamId(Long id);
     List<User> getAllUsers();
 
     User assignTeam(Long userId, Long teamId);

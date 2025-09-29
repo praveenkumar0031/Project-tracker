@@ -1,33 +1,35 @@
 package dev.project.project_manager.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "team")
+@NoArgsConstructor
 public class Team {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    private String name;
 
-    private String teamname;
+    @NotNull
+    private Long leaderid;
 
+    @ElementCollection
+    @CollectionTable(
+            name = "team_members",
+            joinColumns = @JoinColumn(name = "team_id")
+    )
+    @Column(name = "member_id")
+    private Set<Long> members = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "leader_id", nullable = false, unique = true)
-    private User leader;
-
-
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<User> members = new HashSet<>();
-
-    @ManyToMany(mappedBy = "teams")
-    private Set<Project> projects = new HashSet<>();
 }

@@ -26,7 +26,7 @@ public class Project {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    @ManyToMany
+    /*@ManyToMany
     @JoinTable(
             name = "project_users",
             joinColumns = @JoinColumn(name = "project_id"),
@@ -44,4 +44,5 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private Set<Task> tasks = new HashSet<>();
+     */
 }

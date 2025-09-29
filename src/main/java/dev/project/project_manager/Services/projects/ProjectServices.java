@@ -1,34 +1,28 @@
 package dev.project.project_manager.Services.projects;
-
-import dev.project.project_manager.Repository.ProjectRepository;
-import dev.project.project_manager.Repository.TaskRepository;
+/*
 import dev.project.project_manager.Repository.TeamRepository;
 import dev.project.project_manager.Repository.UserRepository;
 import dev.project.project_manager.models.Project;
-import dev.project.project_manager.models.Task;
-import dev.project.project_manager.models.Team;
-import dev.project.project_manager.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ProjectServices implements ProjectService {
 
-    private final ProjectRepository projectRepository;
-    private final TeamRepository teamRepository;
+    private final TeamRepository projectRepository;
+    //private final TeamRepository teamRepository;
     private final UserRepository userRepository;
-    private final TaskRepository taskRepository;
+    //private final TaskRepository taskRepository;
 
-    public ProjectServices(ProjectRepository projectRepository,
-                           TeamRepository teamRepository,
-                           UserRepository userRepository, TaskRepository taskRepository) {
-        this.projectRepository = projectRepository;
-        this.teamRepository = teamRepository;
+    public ProjectServices(TeamRepository teamRepository,
+
+                           UserRepository userRepository) {
+        this.projectRepository = teamRepository;
+        //this.teamRepository = teamRepository;
         this.userRepository = userRepository;
-        this.taskRepository = taskRepository;
+        //this.taskRepository = taskRepository;
 
     }
 
@@ -68,7 +62,7 @@ public class ProjectServices implements ProjectService {
 
     // 🔹 New Features
 
-    @Override
+    /*@Override
     public Project assignOwner(Long projectId, User owner) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
@@ -130,5 +124,6 @@ public class ProjectServices implements ProjectService {
                 .map(Project::getTasks)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
     }
-
 }
+    */
+

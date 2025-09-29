@@ -33,7 +33,9 @@ public class User {
     @NotBlank
     String favourite;
 
-    @ManyToMany
+    private Long teamid;
+
+   /* @ManyToMany
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -51,7 +53,7 @@ public class User {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private Set<Project> ownedProjects = new HashSet<>();
-
+    */
 
 
 }

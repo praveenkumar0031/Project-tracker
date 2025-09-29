@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/prokect-manager/projects/**").authenticated() // anyone logged in
+                        .requestMatchers("/project-teams/**").authenticated() // anyone logged in
                 ).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

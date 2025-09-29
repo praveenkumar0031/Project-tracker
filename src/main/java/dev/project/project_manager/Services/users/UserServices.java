@@ -1,10 +1,7 @@
 package dev.project.project_manager.Services.users;
 
-import dev.project.project_manager.Repository.TeamRepository;
 import dev.project.project_manager.Repository.UserRepository;
-import dev.project.project_manager.models.Team;
 import dev.project.project_manager.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +10,12 @@ import java.util.Optional;
 @Service
 public class UserServices implements UserService {
 
-    private  UserRepository userRepository;
-    private  TeamRepository teamRepository;
+    private final UserRepository userRepository;
 
-    public UserServices(UserRepository userRepository, TeamRepository teamRepository) {
+
+    public UserServices(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.teamRepository = teamRepository;
+
     }
 
     @Override
@@ -43,14 +40,20 @@ public class UserServices implements UserService {
 
     @Override
     public Optional<User> getUserById(Long id) {
+
         return userRepository.findById(id);
     }
 
     @Override
     public Optional<User> getUserByEmail(String email) {
+
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public Optional<User> getUserByTeamId(Long id){
+        return userRepository.findByTeamid(id);
+    }
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -60,13 +63,10 @@ public class UserServices implements UserService {
     public User assignTeam(Long userId, Long teamId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        Team team = teamRepository.findById(teamId)
-                .orElseThrow(() -> new RuntimeException("Team not found"));
-
-        if (user.getTeam() != null) {
+        if (user.getTeamid() != null) {
             throw new RuntimeException("User already assigned to a team");
         }
-        user.setTeam(team);
+        user.setTeamid(teamId);
         return userRepository.save(user);
     }
 
@@ -74,7 +74,7 @@ public class UserServices implements UserService {
     public User removeFromTeam(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setTeam(null);
+        user.setTeamid(null);
         return userRepository.save(user);
     }
 }

@@ -41,9 +41,10 @@ public class UserController {
     }
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest body){
-        String email = body.email();
+        //String email = body.email();
+        String name=body.name();
         String password = body.password();
-        var found = userRepo.findByEmail(email);
+        var found = userRepo.findByUsername(name);
         if(found.isEmpty()){
             return new ResponseEntity<String>("User not found!", HttpStatus.NOT_FOUND);
         }
@@ -51,7 +52,7 @@ public class UserController {
         if(!passwordEncoder.matches(password,user.getPassword())){
             return new ResponseEntity<String>("Wrong password!", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        String token = jwtUtil.generateToken(email);
+        String token = jwtUtil.generateToken(name);
         return ResponseEntity.ok(Map.of("token",token));
     }
     @PutMapping("/forget-password")
